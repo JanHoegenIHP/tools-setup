@@ -1,0 +1,14 @@
+DESIGN_NAME: counter
+
+meta:
+  flow: VHDLClassic
+
+VHDL_FILES: dir::src/*.vhd
+
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+
+CLOCK_PORT: clk
+CLOCK_PERIOD: 30 # 10ns = 100MHz
+
+PL_TARGET_DENSITY: 0.45
+FP_CORE_UTIL: 40

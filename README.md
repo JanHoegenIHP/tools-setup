@@ -23,7 +23,27 @@ make build
 make run
 ```
 
+## VHDL counter example
+
+The example design is a parameterized synchronous counter in `src/counter.vhd`.
+Its GHDL testbench checks reset, enable/hold behavior, and rollover:
+
+```bash
+mkdir -p build/ghdl
+ghdl -a --std=08 --workdir=build/ghdl src/counter.vhd tests/tb_counter.vhd
+ghdl -e --std=08 --workdir=build/ghdl tb_counter
+ghdl -r --std=08 --workdir=build/ghdl tb_counter --assert-level=error
+```
+
+Run the LibreLane flow with `librelane config.yaml` from the project root.
+The config selects LibreLane's `VHDLClassic` flow and the IHP SG13G2 PDK; make
+sure that PDK is installed in your LibreLane PDK root first.
+
 ## To Dos
+
+remove IHP PDk from docker container. mount it from the host machine.
+
+pin softwares to specific versions
 
 todo: [ui on windows](https://github.com/NaPiZip/Docker-GUI-Apps-on-Windows)
 

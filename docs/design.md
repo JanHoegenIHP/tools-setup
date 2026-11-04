@@ -8,7 +8,7 @@ Provide Open Source ASIC Design Workflow, Tools, PDK, for chip developers.
 - **Platforms:** Linux, Windows, MacOS
 - **Technology:** IHP PDK 130nm. Others could be added later.
 - **Deployment:** on local user machine. *Must be offline installabe.* Server based install will be investigated later 
-- **Setup:** 
+- **Setup:** Size must not grow with simulation data, use user space for that. Size of Installation/Setup should be minimal. 
 - **Necssary Tools:**
   - Development
     - make

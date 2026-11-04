@@ -74,7 +74,41 @@ run: check-docker
 		-v /usr/lib/wsl:/usr/lib/wsl \
 		-e PULSE_SERVER=unix:/mnt/wslg/PulseServer \
 		hka-tools/asic
+# todo: add uv sync to run bash cmd
 
 run-windows-x11: check-docker 
 	@echo "run-windows-x11 is only available from Windows; use 'make run' on Linux/WSL."
 endif
+
+
+# _______________________________________________
+# Librelane
+
+LIBRELANE_CONFIG ?= example/librelane.yaml
+LAYOUT_APP ?= klayout # or openroad
+
+.PHONY: harden
+harden:
+	librelane $(LIBRELANE_CONFIG)
+
+
+# _______________________________________________
+# Klayout
+
+.PHONY: rtl-layout layout
+rtl-layout:
+	librelane --last-run --flow openin$(LAYOUT_APP) $(LIBRELANE_CONFIG) &
+
+
+# _______________________________________________
+# Cocotb
+
+# Cocotb
+SIM ?= ghdl
+TOPLEVEL_LANG ?= vhdl
+WAVES ?= 1
+
+.PHONY: simulate 
+simulate: 
+	WAVES=$(WAVES) SIM=$(SIM) uv run pytest example/tests/test.py
+	gtkwave sim_build/*.ghw &

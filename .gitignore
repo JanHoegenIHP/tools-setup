@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# simulation data
+sim_build/
+runs/
