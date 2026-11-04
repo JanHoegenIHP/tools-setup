@@ -129,9 +129,6 @@ RUN chown developer:developer /home/developer/.bash_profile
 ENV PDK_ROOT=/pdks
 ENV PDK=ihp-sg13g2
 
-RUN /bin/bash --login -c "ciel enable --pdk-family ihp-sg13g2 c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c"
-RUN chown -R developer:developer /pdks
-
 
 WORKDIR /workspace
 USER developer

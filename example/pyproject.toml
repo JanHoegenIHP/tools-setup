@@ -8,5 +8,7 @@ dependencies = [
     "cocotb>=2.1.0",
     "cocotb-test>=0.3.0",
     "cocotb-tools>=0.1.0",
+    "klayout>=0.30.12",
+    "psutil>=7.2.2",
     "pytest>=9.2.0",
 ]

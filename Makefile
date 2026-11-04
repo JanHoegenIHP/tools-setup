@@ -1,6 +1,10 @@
 CONTAINER_NAME ?= hka-tools/asic
 
-.PHONY: build run run-windows-x11 test-tools check-docker check-running
+.PHONY: build run run-windows-x11 test-tools test-pdk check-docker check-running
+
+PDK_ROOT ?= $(HOME)/pdks
+PDK = ihp-sg13g2
+PDK_VERSION ?= c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c
 
 
 # _______________________________________________
@@ -12,8 +16,15 @@ build: check-docker
 test-tools: check-docker 
 	docker run --rm \
 		-v "$(CURDIR):/workspace" \
+		-v "$(PDK_ROOT):/pdks" \
 		hka-tools/asic python3 /workspace/tests/smoke_test.py
 
+test-pdk:
+	if [ ! -d "$(PDK_ROOT)/$(PDK)" ]; then \
+		echo "PDK '$(PDK)' version '$(PDK_VERSION)' not found under $(PDK_ROOT)"; \
+		echo "Run: ciel enable --pdk-family $(PDK) --pdk-root \"$(PDK_ROOT)\" $(PDK_VERSION)"; \
+		exit 1; \
+	fi
 
 # _______________________________________________
 # WSL bash Docker
@@ -36,10 +47,11 @@ check-running:
 DISPLAY ?= :0
 WAYLAND_DISPLAY ?= wayland-0
 XDG_RUNTIME_DIR := /mnt/wslg/runtime-dir
-run: check-docker 
+run: check-docker test-pdk
 	docker run -it --rm \
 		--hostname hka-tools \
-		-v "$(CURDIR):/workspace" \
+		-v "$(CURDIR)/example:/workspace" \
+		-v "$(PDK_ROOT):/pdks" \
 		-e DISPLAY=$(DISPLAY) \
 		-e WAYLAND_DISPLAY=$(WAYLAND_DISPLAY) \
 		-e XDG_RUNTIME_DIR=$(XDG_RUNTIME_DIR) \
@@ -80,7 +92,8 @@ run: check-docker
 run-windows-x11: check-docker 
 	docker run -it --rm \
 		--hostname hka-tools \
-		-v "$(CURDIR):/workspace" \
+		-v "$(CURDIR)/example:/workspace" \
+		-v "$(PDK_ROOT):/pdks" \
 		-e DISPLAY=$(WINDOWS_X11_DISPLAY) \
 		-e QT_X11_NO_MITSHM=1 \
 		hka-tools/asic

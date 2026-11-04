@@ -14,7 +14,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
     
 
-def test_main():
+def test_counter():
     sources = sorted(SRC_DIR.glob("*.vhd"))
 
     runner = get_runner(SIM)
@@ -24,6 +24,6 @@ def test_main():
         always=True,
     )
     runner.test(
-        test_module="tests.test_main",
+        test_module="tests.test_counter",
         hdl_toplevel="counter",
     )

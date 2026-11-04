@@ -14,15 +14,24 @@ Currently, this project is in development. We are working on a Windows 11 Host m
 - make, e.g. `winget install ezwinports.make`
 - bash on Windows
 - Python: `winget install Python.PythonInstallManager`
-- ciel: `python -m pip install --user ciel`, then `$env:Path += ';C:\Users\hoegen\AppData\Roaming\Python\Python314\Scripts'`
+- ciel: `python -m pip install --user ciel`, then `$env:Path += ';$HOME\AppData\Roaming\Python\Python314\Scripts'`
+
+or `sudo apt install pipx` then `pipx ensurepath` then `pipx install ciel --force 'ciel==2.4.0'`
 
 ### Download PDK
 
 The PDK will live on your host machine. Use
 
 ```bash
-ciel enable --pdk-family ihp-sg13g2 --pdk-root "C:\Users\hoegen\Projects\tools-setup\pdks"
+ciel enable --pdk-family ihp-sg13g2 --pdk-root "$HOME/pdks" c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c
 ```
+
+Run this in WSL so CIEL caches the selected version under
+`$HOME/pdks/ciel/ihp-sg13/versions/.../ihp-sg13g2` (CIEL's canonical family
+name is `ihp-sg13`). `make run` bind-mounts the whole host `PDK_ROOT` (default
+`$HOME/pdks`) at `/pdks` and aliases that CIEL cache at the family path expected
+by the container. If the PDK is stored elsewhere, set `PDK_ROOT` to that parent
+directory when invoking `make run`.
 
 ## Usage
 
@@ -39,6 +48,8 @@ make run
 ```
 
 ## To Dos
+
+fix permission errors when project is on windows file path
 
 remove IHP PDk from docker container. mount it from the host machine.
 
