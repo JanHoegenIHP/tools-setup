@@ -6,7 +6,7 @@ from cocotb_tools.runner import get_runner
 
 SIM = os.getenv("SIM", "ghdl")
 
-PROJECT_ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = PROJECT_ROOT / "src"
 
 # necessary for running the script!
@@ -24,6 +24,6 @@ def test_main():
         always=True,
     )
     runner.test(
-        test_module="example.tests.test_main",
+        test_module="tests.test_main",
         hdl_toplevel="counter",
     )

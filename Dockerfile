@@ -101,10 +101,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN useradd --shell /bin/bash --create-home developer
 
-RUN chown -R developer:developer /nix
+RUN mkdir -p /workspace /pdks /nix && \
+    chown -R developer:developer /workspace /pdks /nix
 
-RUN mkdir -p /workspace
-RUN chown -R developer:developer /workspace
 
 RUN printf '%s\n' \
     'if [[ -f /etc/profile.d/eda-environment.sh ]]; then' \
@@ -123,10 +122,6 @@ RUN printf '%s\n' \
     > /home/developer/.bash_profile
 RUN chown developer:developer /home/developer/.bash_profile
 
-WORKDIR /workspace
-
-CMD ["/bin/bash", "--login"]
-
 
 # _________________________________________________________
 # PDK
@@ -138,5 +133,6 @@ RUN /bin/bash --login -c "ciel enable --pdk-family ihp-sg13g2 c4b8b4e5e7a05f375c
 RUN chown -R developer:developer /pdks
 
 
-
+WORKDIR /workspace
 USER developer
+CMD ["/bin/bash", "--login"]

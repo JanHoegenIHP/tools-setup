@@ -12,36 +12,37 @@ Currently, this project is in development. We are working on a Windows 11 Host m
 - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)
 - [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install), install with `wsl --install`
 - make, e.g. `winget install ezwinports.make`
+- bash on Windows
+- Python: `winget install Python.PythonInstallManager`
+- ciel: `python -m pip install --user ciel`, then `$env:Path += ';C:\Users\hoegen\AppData\Roaming\Python\Python314\Scripts'`
+
+### Download PDK
+
+The PDK will live on your host machine. Use
+
+```bash
+ciel enable --pdk-family ihp-sg13g2 --pdk-root "C:\Users\hoegen\Projects\tools-setup\pdks"
+```
 
 ## Usage
+
+Create the docker container with
 
 ```bash
 make build
 ```
 
+Run a shell from the docker container with the current project mounted to it:
+
 ```bash
 make run
 ```
 
-## VHDL counter example
-
-The example design is a parameterized synchronous counter in `src/counter.vhd`.
-Its GHDL testbench checks reset, enable/hold behavior, and rollover:
-
-```bash
-mkdir -p build/ghdl
-ghdl -a --std=08 --workdir=build/ghdl src/counter.vhd tests/tb_counter.vhd
-ghdl -e --std=08 --workdir=build/ghdl tb_counter
-ghdl -r --std=08 --workdir=build/ghdl tb_counter --assert-level=error
-```
-
-Run the LibreLane flow with `librelane config.yaml` from the project root.
-The config selects LibreLane's `VHDLClassic` flow and the IHP SG13G2 PDK; make
-sure that PDK is installed in your LibreLane PDK root first.
-
 ## To Dos
 
 remove IHP PDk from docker container. mount it from the host machine.
+
+use build stages whereever possible
 
 pin softwares to specific versions
 
@@ -51,6 +52,9 @@ todo: [ui on windows](https://github.com/NaPiZip/Docker-GUI-Apps-on-Windows)
 - `make run-windows-x11` runs Docker directly from Windows and forwards X11 to a Windows X server. Start VcXsrv first (display `0`, multi-window mode, no client), then use this target. The Makefile defaults to `host.docker.internal:0.0`; override `WINDOWS_X11_DISPLAY` if the server uses another display.
 
 add vhdl to gds test
+
+user workspace must be accesible by host machine, by e.g. mirroring/bin-mounting. internal docker container should not be the dev setup.
+todo: dont mirror the .venv to the docker!
 
 ## Sources
 

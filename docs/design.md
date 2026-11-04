@@ -1,14 +1,16 @@
-# Open Source Tools Setup
+# Design Documentation
+
+THe design, its contraints and relevant choices are documented here.
 
 ## Requirements
 
-Provide Open Source ASIC Design Workflow, Tools, PDK, for chip developers.
+**Goal:** Provide Open Source ASIC Design Workflow, Tools, PDK, for chip developers.
 
 - **Target Audience:** University Students, maybe interested professors/teachers
 - **Platforms:** Linux, Windows, MacOS
 - **Technology:** IHP PDK 130nm. Others could be added later.
 - **Deployment:** on local user machine. *Must be offline installabe.* Server based install will be investigated later 
-- **Setup:** Size must not grow with simulation data, use user space for that. Size of Installation/Setup should be minimal. 
+- **Hardware Requirement:** Size of toolchain must not grow with simulation data, use user space for that. Size of Installation/Setup should be minimal. 
 - **Necssary Tools:**
   - Development
     - make
@@ -31,12 +33,6 @@ Provide Open Source ASIC Design Workflow, Tools, PDK, for chip developers.
 ### Docker Container
 
 tools will work on all platforms. supports export and offline install.
-
-use multi stage build!
-
-user workspace must be accesible by host machine, by e.g. mirroring/bin-mounting. internal docker container should not be the dev setup.
-
-todo: dont mirror the .venv to the docker!
 
 ### Dev Container
 
