@@ -1,0 +1,10 @@
+# IHP-Open-PDK Python requirements from docs/ihp.md.
+flake8
+docopt
+pandas
+klayout==0.30.5
+pyyaml
+gdstk
+tqdm
+termcolor
+psutil 
