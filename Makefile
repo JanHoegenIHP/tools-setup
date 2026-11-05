@@ -1,6 +1,6 @@
 CONTAINER_NAME ?= hka-tools/asic
 
-.PHONY: build run test-tools test-pdk check-docker check-running
+.PHONY: build run test-tools test-pdk check-docker check-running export
 
 PDK_ROOT ?= $(HOME)/pdks
 PDK = ihp-sg13g2
@@ -68,3 +68,6 @@ run: check-docker test-pdk
 		-e PULSE_SERVER=unix:/mnt/wslg/PulseServer \
 		hka-tools/asic
 # todo: add uv sync to run bash cmd
+
+save:
+	docker save hka-tools/asic | gzip > hka-tools-asic.tar.gz

@@ -26,6 +26,22 @@ ciel enable --pdk-family ihp-sg13g2 --pdk-root "$HOME/pdks" c4b8b4e5e7a05f375cca
 
 ## Usage
 
+### Load the exported Docker
+
+First, export the latest docker build image with 
+
+```bash
+make save
+```
+
+Then on a new machine, copy the resulting file `hka-tools-asic.tar` and load it with:
+
+```bash
+docker load < <path/to/file/>.tar.gz 
+```
+
+### Build the Docker yourself
+
 Create the docker container with
 
 ```bash
@@ -77,6 +93,10 @@ pin softwares to specific versions
 add vhdl to gds test
 
 add xschem, ngspice
+
+generate a list dynmically of all apps the dev container provides
+
+add license
 
 ## Sources
 
