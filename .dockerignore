@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+hka-tools-asic.tar
+hka-tools-asic.tar.gz
+*.tar
+*.tar.gz
+example/
+.tmp*

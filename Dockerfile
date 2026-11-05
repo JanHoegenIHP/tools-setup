@@ -123,7 +123,6 @@ ENV PATH="/opt/ihp-venv/bin:${PATH}"
 
 # ! The pdk dir lives on the host machine. Make sure to mount it into the container at /pdks when running the container.
 ENV PDK_ROOT=/pdks
-ENV PDK=ihp-sg13g2
 ENV KLAYOUT_HOME=/home/developer/.klayout
 ENV KLAYOUT_PATH=/home/developer/.klayout
 
