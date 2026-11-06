@@ -15,6 +15,7 @@ Necessary tools on your Win11 host machine are:
 
 - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/), check its installation guide
 - [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install), e.g. `wsl --install`
+- [make](https://www.gnu.org/software/make/) , e.g. `winget install GnuWin32.Make`
 
 ### Option 1: Cygwin
 
@@ -27,7 +28,7 @@ mkdir "$HOME\cygwin", "$HOME\cygwin\packages", "$HOME\cygwin\root"
 cygwinsetup --root $HOME/cygwin/root --local-package-dir "$HOME/cygwin/packages" --no-admin --no-desktop  --no-shortcuts  --no-startmenu --site  https://cygwin.itefix.net  --packages xhost xlaunch xorg-docs xterm xinit xorg-server
 ```
 
-click yes/next until the installation is finished. 
+keep clicking yes/next until the installation is finished. 
 
 #### Activate Xwin
 
@@ -38,14 +39,20 @@ cd "$HOME\cygwin\root"
 .\Cygwin.bat
 ```
 
-and run this in the new window:
+and run this in the new bash terminal:
 
 ```bash
 XWin :0 -listen tcp -multiwindow &
 export DISPLAY=:0.0
 ```
 
-You can stop xwin listening with this in your host powershell terminal:
+and exit the terminal:
+
+```bash
+exit
+```
+
+The XWin will still run after closing the shell. You can stop xwin with this command *on your host powershell terminal*:
 
 ```powershell
 Stop-Process -Name XWin -Force
@@ -78,6 +85,7 @@ the following tools are required on your wsl path:
 - [Python](https://www.python.org/downloads/), e.g. `sudo apt install python3`
 - [uv](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer), e.g. `curl -LsSf https://astral.sh/uv/install.sh | sh`
 - [ciel 2.4.0](https://github.com/fossi-foundation/ciel): e.g. `uv tool install ciel==2.4.0`
+- [make](https://www.gnu.org/software/make/), e.g. `sudo apt install make` 
 
 #### Install PDK
 
@@ -184,6 +192,8 @@ add xschem, ngspice
 generate a list dynmically of all apps the dev container provides
 
 add license
+
+todo: make cygwin behave like a packet manager: [documentation](https://cygwin.readthedocs.io/en/stable/install/)
 
 ## Sources
 

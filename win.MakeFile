@@ -25,16 +25,14 @@ build: test-docker
 DISPLAY ?= host.docker.internal:0.0
 
 run: test-docker test-pdk
-        docker run -it --rm \
-        --hostname hka-tools \
-        -v \"$(CURDIR)/example:/workspace\" \
-        -v \"$${PDK_ROOT}:/pdks\" \
-        -e \"PDK=$(PDK)\" \
-        -e \"PDK_VERSION=$(PDK_VERSION)\" \
-        -e \"KLAYOUT_HOME=/home/developer/.klayout\" \
-        -e \"KLAYOUT_PATH=/home/developer/.klayout:/pdks/ciel/$(PDK)/versions/$(PDK_VERSION)/$(PDK)/libs.tech/klayout\" \
-        -e DISPLAY=$(DISPLAY) \
-        hka-tools/asic"
+	docker run -it --rm \
+		--hostname hka-tools \
+		-v "$(CURDIR)/example:/workspace" \
+		-v "$(PDK_ROOT):/pdks" \
+		-e "PDK=$(PDK)" \
+		-e "PDK_VERSION=$(PDK_VERSION)" \
+		-e DISPLAY=$(DISPLAY) \
+		hka-tools/asic
 
 save:
 	docker save hka-tools/asic
