@@ -2,7 +2,7 @@ CONTAINER_NAME ?= hka-tools/asic
 
 .PHONY: build run run-win test-tools test-pdk test-docker check-docker check-running export
 
-PDK_ROOT ?= $(USERPROFILE)/pdks
+PDK_ROOT ?= $(USERPROFILE)/pdks/IHP-Open-PDK
 PDK = ihp-sg13g2
 PDK_VERSION ?= c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c
 
@@ -25,6 +25,7 @@ build: test-docker
 DISPLAY ?= host.docker.internal:0.0
 
 run: test-docker test-pdk
+	@echo "mounting $(CURDIR)/example and $(PDK_ROOT)"
 	docker run -it --rm \
 		--hostname hka-tools \
 		-v "$(CURDIR)/example:/workspace" \

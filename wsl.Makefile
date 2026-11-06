@@ -40,10 +40,8 @@ run: test-docker test-pdk
 		--hostname hka-tools \
 		-v "$(CURDIR)/example:/workspace" \
 		-v "$(PDK_ROOT):/pdks" \
+		-e "PDK_ROOT=/pdks" \
 		-e "PDK=$(PDK)" \
-		-e "PDK_VERSION=$(PDK_VERSION)" \
-		-e "KLAYOUT_HOME=/home/developer/.klayout" \
-		-e "KLAYOUT_PATH=/home/developer/.klayout:/pdks/ciel/$(PDK)/versions/$(PDK_VERSION)/$(PDK)/libs.tech/klayout" \
 		-e DISPLAY=$(DISPLAY) \
 		-e WAYLAND_DISPLAY=$(WAYLAND_DISPLAY) \
 		-e XDG_RUNTIME_DIR=$(XDG_RUNTIME_DIR) \

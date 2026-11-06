@@ -16,6 +16,7 @@ Necessary tools on your Win11 host machine are:
 - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/), check its installation guide
 - [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install), e.g. `wsl --install`
 - [make](https://www.gnu.org/software/make/) , e.g. `winget install GnuWin32.Make`
+- [Python](https://www.python.org/downloads/), e.g. `winget install Python.PythonInstallManager`
 
 ### Option 1: Cygwin
 
@@ -25,10 +26,23 @@ We will install [Cygwin](https://x.cygwin.com/docs/ug/setup.html) with these com
 winget install Cygwin.CygwinSetup
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 mkdir "$HOME\cygwin", "$HOME\cygwin\packages", "$HOME\cygwin\root"
-cygwinsetup --root $HOME/cygwin/root --local-package-dir "$HOME/cygwin/packages" --no-admin --no-desktop  --no-shortcuts  --no-startmenu --site  https://cygwin.itefix.net  --packages xhost xlaunch xorg-docs xterm xinit xorg-server
+cygwinsetup --root $HOME/cygwin/root --local-package-dir $HOME/cygwin/packages --quiet-mode --no-admin --no-desktop --no-shortcuts --no-startmenu --packages xhost,xlaunch,xorg-docs,xterm,xinit,xorg-server --upgrade-also &
 ```
 
 keep clicking yes/next until the installation is finished. 
+
+Please check if the tools have been installed successfully with:
+
+```powershell
+cd "$HOME\cygwin\root"
+.\Cygwin.bat
+```
+
+and in the new bash shell:
+
+```bash
+cygcheck -c xorg-server xinit xterm xorg-docs xlaunch xhost
+```
 
 #### Activate Xwin
 
@@ -43,18 +57,13 @@ and run this in the new bash terminal:
 
 ```bash
 XWin :0 -listen tcp -multiwindow &
-export DISPLAY=:0.0
-```
-
-and exit the terminal:
-
-```bash
 exit
 ```
 
 The XWin will still run after closing the shell. You can stop xwin with this command *on your host powershell terminal*:
 
 ```powershell
+Get-Process -Name XWin # check if the process is running
 Stop-Process -Name XWin -Force
 ```
 
@@ -69,13 +78,7 @@ cd $HOME/pdks
 git clone --branch dev --recurse-submodules https://github.com/IHP-GmbH/IHP-Open-PDK.git
 cd IHP-Open-PDK
 
-echo "export PDK_ROOT=\$HOME/your_directory/IHP-Open-PDK" >> ~/.bashrc
-echo "export PDK=ihp-sg13g2" >> ~/.bashrc
-echo "export KLAYOUT_PATH=\"\$HOME/.klayout:\$PDK_ROOT/\$PDK/libs.tech/klayout\"" >> ~/.bashrc
-echo "export KLAYOUT_HOME=\$HOME/.klayout" >> ~/.bashrc
-source ~/.bashrc
-
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### Option 2: WSL
