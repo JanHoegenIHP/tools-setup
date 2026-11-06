@@ -29,9 +29,8 @@ run: test-docker test-pdk
 	docker run -it --rm \
 		--hostname hka-tools \
 		-v "$(CURDIR)/example:/workspace" \
-		-v "$(PDK_ROOT):/pdks" \
 		-e "PDK=$(PDK)" \
-		-e "PDK_VERSION=$(PDK_VERSION)" \
+		-e "PDK_ROOT=/pdks" \
 		-e DISPLAY=$(DISPLAY) \
 		hka-tools/asic
 

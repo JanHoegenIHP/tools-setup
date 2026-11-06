@@ -116,19 +116,22 @@ Set-Location tools-setup
 Build the image from the project directory:
 
 ```powershell
-make build
+make -f .\win.MakeFile build
+make -f wsl.Makefile build
 ```
 
 The following command generates a shell from inside the dev container. The `example` folder from this repository as well as the PDK from the requirement are mounted.
 
 ```powershell
-make run
+make -f .\win.MakeFile run
+make -f wsl.Makefile run
 ```
 
 Export the built image with:
 
 ```powershell
-make save
+make -f .\win.MakeFile save
+make -f wsl.Makefile save
 ```
 
 ## Usage
