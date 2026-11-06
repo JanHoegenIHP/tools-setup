@@ -175,6 +175,8 @@ make rtl-layout
 
 ## To Dos
 
+remove klayout pop up by: ~/.klayout/klayoutrc: ` <hide-empty-layers>false</hide-empty-layers>`
+
 fix klayout ihp pdk drc importerror. most likely solution: fix python environment path
 
 fix klayout 2.5 d viewer errors. most likely solution: add missing ui dependencies
