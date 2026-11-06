@@ -3,7 +3,7 @@
 This project contains a Dockerfile to create a development container. The idea is to provide a simple way for other people to start using open source ASIC design tools. Developed under Hochschule Karlsruhe, University of Applied Sciences -- Karlsruhe, Germany. Abbreviation HKA.
 
 Author: Jan Hoegen
-Prof: Herman Jali Ng
+Prof: Herman Jalli Ng
 
 ## Requirements
 
@@ -26,7 +26,7 @@ We will install [Cygwin](https://x.cygwin.com/docs/ug/setup.html) with these com
 winget install Cygwin.CygwinSetup
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 mkdir "$HOME\cygwin", "$HOME\cygwin\packages", "$HOME\cygwin\root"
-cygwinsetup --root $HOME/cygwin/root --local-package-dir $HOME/cygwin/packages --quiet-mode --no-admin --no-desktop --no-shortcuts --no-startmenu --packages xhost,xlaunch,xorg-docs,xterm,xinit,xorg-server --upgrade-also &
+cygwinsetup --root $HOME/cygwin/root --local-package-dir $HOME/cygwin/packages --quiet-mode --no-admin --no-desktop --no-shortcuts --no-startmenu --packages xhost,xlaunch,xorg-docs,xterm,xinit,xorg-server --upgrade-also
 ```
 
 keep clicking yes/next until the installation is finished. 
@@ -113,6 +113,8 @@ Set-Location tools-setup
 
 ## Development
 
+From the commands below, select the Makefile that works for your workflow.
+
 Build the image from the project directory:
 
 ```powershell
@@ -153,7 +155,7 @@ docker load --input .\hka-tools-asic.tar
 
 ### Try Out the Example
 
-After `task run`, you will be dropped into a Bash shell inside the development container.
+After `make -f <file> run`, you will be dropped into a Bash shell inside the development container.
 
 it already contains a 4 bit counter in vhdl in `src/counter.vhd`. You can inspect its testbench in `tests/test_counter.py` written in [cocotb](https://docs.cocotb.org/en/stable/). To run the testbench simulation and view the waveform results, run:
 
@@ -181,15 +183,17 @@ fix klayout ihp pdk drc importerror. most likely solution: fix python environmen
 
 fix klayout 2.5 d viewer errors. most likely solution: add missing ui dependencies
 
-fix permission errors when project is on windows file path
+move away from seperate Makefile for different platforms. use a single builder that works for every os. Important: this project contains the development and creation of the docker image. for users, there should later be a very simple way to import and run the prebuilt container. ideally, this startup script also works for all OS.
 
-fix "used by another process" for ciel install on windows
+the pdk on windows does not get recognized by librelance after mounting to the docker. either fix the issue, or package the pdk together with the docker in a single build.
 
-use build stages whereever possible
+enable ciel pdk installation on windows
 
 pin softwares to specific versions
 
 add smoke tests
+
+use build stages for dockerfile whereever possible
 
 add uv sync to makefile run 
 

@@ -20,19 +20,20 @@ test-docker:
 # main
 
 build: test-docker
-	docker build --tag hka-tools/asic .
+	docker build --tag $(CONTAINER_NAME) .
 
 DISPLAY ?= host.docker.internal:0.0
 
 run: test-docker test-pdk
 	@echo "mounting $(CURDIR)/example and $(PDK_ROOT)"
 	docker run -it --rm \
+		--name hka-tools-container \
 		--hostname hka-tools \
 		-v "$(CURDIR)/example:/workspace" \
 		-e "PDK=$(PDK)" \
 		-e "PDK_ROOT=/pdks" \
 		-e DISPLAY=$(DISPLAY) \
-		hka-tools/asic
+		$(CONTAINER_NAME)
 
 save:
-	docker save hka-tools/asic
+	docker save $(CONTAINER_NAME)
