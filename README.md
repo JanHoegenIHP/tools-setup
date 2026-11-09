@@ -181,7 +181,11 @@ make rtl-layout
 
 remove klayout pop up by: ~/.klayout/klayoutrc: ` <hide-empty-layers>false</hide-empty-layers>`
 
-fix klayout ihp pdk drc importerror. most likely solution: fix python environment path
+fix klayout ihp pdk drc importerror. most likely solution: fix python environment path. Use these environment variables:
+```bash
+KLAYOUT_PYTHONPATH         The equivalent of PYTHONPATH for KLayout.
+KLAYOUT_PYTHONHOME         The equivalent of PYTHONHOME for KLayout.
+```
 
 fix klayout 2.5 d viewer errors. most likely solution: add missing ui dependencies
 
@@ -199,7 +203,7 @@ use build stages for dockerfile whereever possible
 
 add uv sync to makefile run 
 
-add vhdl to gds test
+add testcase with complete vhdl to gds verification
 
 add xschem, ngspice
 
@@ -207,7 +211,7 @@ generate a list dynmically of all apps the dev container provides
 
 add license
 
-todo: make cygwin behave like a packet manager: [documentation](https://cygwin.readthedocs.io/en/stable/install/)
+make cygwin behave like a packet manager: [documentation](https://cygwin.readthedocs.io/en/stable/install/)
 
 ## Sources
 
