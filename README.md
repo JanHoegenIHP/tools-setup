@@ -8,19 +8,22 @@ Prof: Herman Jalli Ng
 ## Requirements
 
 Currently, this project is in development. We are working on a Windows 11 Host machine. 2 different usage methods are supported:
-1. Run your development projects on C filesystem and use Cygwin for GUI support to the docker container
-2. Run your development on either the C filesystem or a WSl distribution and use WSLg for GUI support to the docker container.
+1. Run your development projects on the `c:` drive filesystem and use Cygwin for GUI support. Cygwin has to be installed manually
+2. Run your development on either on the `c:` drive or from inside a WSl distribution and use WSLg for GUI support. WSLg is included without setup.
 
 Necessary tools on your Win11 host machine are:
 
 - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/), check its installation guide
 - [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install), e.g. `wsl --install`
-- [make](https://www.gnu.org/software/make/) , e.g. `winget install GnuWin32.Make`
-- [Python](https://www.python.org/downloads/), e.g. `winget install Python.PythonInstallManager`
 
 ### Option 1: Cygwin
 
-We will install [Cygwin](https://x.cygwin.com/docs/ug/setup.html) with these commands:
+The following tools are required:
+
+- [make](https://www.gnu.org/software/make/) , e.g. `winget install GnuWin32.Make`
+- [Python](https://www.python.org/downloads/), e.g. `winget install Python.PythonInstallManager`
+
+Next, we will install [Cygwin](https://x.cygwin.com/docs/ug/setup.html) with these commands:
 
 ```powershell
 winget install Cygwin.CygwinSetup
@@ -105,8 +108,7 @@ ciel enable --pdk-family $PDK --pdk-root $PDK_ROOT c4b8b4e5e7a05f375cca3815d51b3
 Clone this repository into a user-writable directory, such as a folder under `C:\Users\<username>\projects`:
 
 ```powershell
-mkdir $HOME/projects # or any other user path
-Set-Location $HOME/projects
+Set-Location <your/path>
 git clone https://github.com/JanHoegenIHP/tools-setup
 Set-Location tools-setup
 ```
