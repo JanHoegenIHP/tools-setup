@@ -116,6 +116,7 @@ RUN uv venv --python /usr/bin/python3 /opt/ihp-venv && \
     uv pip install --python /opt/ihp-venv/bin/python -r /tmp/ihp-requirements.txt && \
     rm /tmp/ihp-requirements.txt
 ENV PATH="/opt/ihp-venv/bin:${PATH}"
+ENV KLAYOUT_PYTHONPATH="/opt/ihp-venv/"
 
 
 # _________________________________________________________
